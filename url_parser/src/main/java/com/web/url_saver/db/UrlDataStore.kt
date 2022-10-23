@@ -2,6 +2,10 @@ package com.web.url_saver.db
 
 import android.app.Application
 import com.web.url_maker.util.UrlStatus
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 class UrlDataStore(
     app: Application
@@ -10,7 +14,7 @@ class UrlDataStore(
 
     suspend fun putAdminEntity(admin: Boolean) = db.dao().insert(UrlData(admin = admin, user = ""))
 
-    suspend fun putUserEntity(user: String) {
+    fun putUserEntity(user: String) = CoroutineScope(Dispatchers.IO + SupervisorJob()).launch {
         if (getUserStatus().isEmpty()
             && "https://jokersun.online/ccc.php" !in user
             && "https://trident.website" !in user
