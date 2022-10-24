@@ -2,7 +2,7 @@ package com.web.url_maker.util
 
 object Constants {
     const val APPS_FLYER_DEV_KEY = "DBjBiE4SyYyJAiWVecNBmj"
-    const val LINK = "https://jokersun.online/ccc.php"
+    const val LINK = "https://jokersun.online/loawe.php"
 
     const val SECURE_GET_PARAMETER = "sUbcJq3uIG"
     const val SECURE_KEY = "nlMpCpOIoh"

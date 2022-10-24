@@ -1,6 +1,7 @@
 package com.web.url_saver.db
 
 import android.app.Application
+import android.util.Log
 import com.web.url_maker.util.UrlStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,9 +17,10 @@ class UrlDataStore(
 
     fun putUserEntity(user: String) = CoroutineScope(Dispatchers.IO + SupervisorJob()).launch {
         if (getUserStatus().isEmpty()
-            && "https://jokersun.online/ccc.php" !in user
+            && "https://jokersun.online/loawe.php" !in user
             && "https://trident.website" !in user
         ) {
+            Log.d("UrlDataStore", "User saved: $user")
             val current = db.dao().getEntity()
             db.dao().insert(current.copy(user = user))
         }
