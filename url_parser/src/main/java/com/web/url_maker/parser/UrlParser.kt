@@ -41,11 +41,12 @@ class UrlParser {
         this.observer = observer
     }
 
-    private suspend fun getDeepLink(context: Context): String? {
+    private suspend fun getDeepLink(mockDeep: Boolean, context: Context): String? {
         delay(1000)
         return suspendCoroutine { continuation ->
             AppLinkData.fetchDeferredAppLinkData(context) { appLinkData ->
-                val targetUri = appLinkData?.targetUri?.toString()
+                val targetUri =
+                    if (mockDeep) "myapp://test!@1/testЫЙ2/test)(3" else appLinkData?.targetUri?.toString()
                 deepLink = targetUri
                 observer?.notify(Type.DeepLink(isNull = targetUri == null))
                 continuation.resume(targetUri)
@@ -89,11 +90,11 @@ class UrlParser {
         }
     }
 
-    suspend fun create(context: Context): String {
+    suspend fun create(mockDeep: Boolean, context: Context): String {
         val googleId = withContext(Dispatchers.IO) {
             AdvertisingIdClient.getAdvertisingIdInfo(context).id.toString()
         }
-        deepLink = getDeepLink(context)
+        deepLink = getDeepLink(mockDeep, context)
         if (deepLink == null) {
             appsFlyer = getAppsData(context)
         }
