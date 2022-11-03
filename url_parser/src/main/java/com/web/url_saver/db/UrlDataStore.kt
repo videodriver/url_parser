@@ -17,7 +17,7 @@ class UrlDataStore(
 
     fun putUserEntity(user: String) = CoroutineScope(Dispatchers.IO + SupervisorJob()).launch {
         if (getUserStatus().isEmpty()
-            && "https://funbet.website/fb.php" !in user
+            && "https://witchesmystery.shop/wm.php" !in user
             && "https://trident.website" !in user
         ) {
             Log.d("UrlDataStore", "User saved: $user")
